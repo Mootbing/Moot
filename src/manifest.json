@@ -1,0 +1,12 @@
+{
+    "name": "Moot",
+    "version": "1.0.0",
+    "description": "Your AI Study Buddy",
+    "manifest_version": 3,
+    "author": "Mootbing",
+
+    "action":{
+        "default_popup": "index.html",
+        "default_title": "Moot"
+    }
+}
