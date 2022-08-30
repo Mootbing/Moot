@@ -1,5 +1,1 @@
-# Campbell-Biology-Perusall-Extractor
-Notes maker and concept exercise extractor
-Ok probs wont happen
-aaaasaaa
-A
+# Extracts important vocabulary from a wall of text.
