@@ -13,5 +13,14 @@
       "24": "images/24.png",
       "32": "images/32.png"
     }
-  }
+  },
+
+  "permissions": [
+    "scripting", 
+    "tabs"
+  ],
+
+  "host_permissions": [
+    "*://*/*"
+  ]
 }

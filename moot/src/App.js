@@ -1,3 +1,5 @@
+/* global chrome, getTabId */
+
 import logo from './logo.svg';
 import './App.css';
 
@@ -7,6 +9,31 @@ function App() {
 
   const [loading, setLoading] = useState(false);
   const [keyTerms, setKeyTerms] = useState(null);
+
+  const lookForKeyTerms = () => {
+
+    chrome.tabs.query(
+      {currentWindow: true, active : true},
+      (tabs) => {
+        chrome.scripting.executeScript(
+        {
+          target: {tabId: tabs[0].id, allFrames: true},
+          func: () => {
+            return document.body.innerText;//getElementByClassName("keyword");//.map(value => {return value.innerText});
+          },
+        },
+        (injectionResults) => {
+          let completeStr = "";
+          for (const word of injectionResults)
+          {
+            completeStr += word.result + "\n";
+          }
+          let kwds = completeStr.match(/[A-Z][^.\n]*?\s(is|are|-)\s(called|a)\s[^.\n]*?(\.|;|:)/g);
+          setKeyTerms(kwds.map(value => " " + value));
+        });
+      }
+    )
+  }
 
   return (
     <div style={{width: '250px', color: "white", backgroundColor: '#232323', padding: '15px'}}>
@@ -26,7 +53,7 @@ function App() {
         <p style={{fontSize: '12px', fontWeight: "bold", marginBottom: 0}}>
           Actions:
         </p>
-        <button onClick={() => {setKeyTerms("Terms: a"); setLoading(true)}} style={{fontSize: '12px', height: '25px', borderColor: '#303030', backgroundColor: '#303030', color: '#7ccfff', borderRadius: '5px', borderWidth: '1px', width: '100%', marginBottom: '5px'}}>
+        <button onClick={() => {lookForKeyTerms()}} style={{fontSize: '12px', height: '25px', borderColor: '#303030', backgroundColor: '#303030', color: '#7ccfff', borderRadius: '5px', borderWidth: '1px', width: '100%', marginBottom: '5px'}}>
           Extract Key Terms
         </button>
         {keyTerms && <textarea id="output-key-terms" style={{width: '100%', height: '100px', borderRadius: '5px', borderWidth: '0px', fontSize: '12px', backgroundColor: '#303030', color: 'white', padding: '10px'}} placeholder="Output" readOnly defaultValue={keyTerms} />}
@@ -44,9 +71,7 @@ function App() {
           height: "100%",
         }}
       >
-        <center style={{top: "50%"}}>
-          <img src="images/loading.gif" alt="loading" width="50" height="50"/>
-        </center>
+        <img style={{position: "absolute", top:"45%", left: "45%"}} src="images/loading.gif" alt="loading" width="50" height="50"/>
       </div>}
     </div>
   );
