@@ -1,2 +1,5 @@
-# Extracts important vocabulary from a wall of text.
+# Moot
+Your AI powered study buddy.
+
+## How?
 Chrome extention 
