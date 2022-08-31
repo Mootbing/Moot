@@ -2,4 +2,4 @@
 Your AI powered study buddy.
 
 ## How?
-Chrome extention 
+Chrome extention test
