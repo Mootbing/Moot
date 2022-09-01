@@ -28,7 +28,7 @@ function App() {
           {
             completeStr += word.result + "\n";
           }
-          let kwds = completeStr.match(/[A-Z][^.\n]*?\s(is|are|-)\s(called|a)\s[^.\n]*?(\.|;|:)/g);
+          let kwds = completeStr.match(/[A-Z][^.\n]*?\s(is|are|-|was|were)\s(called|a)\s[^.\n]*?(\.|;|:)/g);
           setKeyTerms(kwds.map(value => " " + value));
         });
       }
